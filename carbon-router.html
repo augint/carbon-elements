@@ -1,5 +1,3 @@
-<link href="../!/polymer/polymer.html" is="pulp-import">
-
 <script>
 (function() {
 
@@ -39,7 +37,7 @@
     return getRoute();
   };
 
-  Polymer.PulpRoutingBehavior = {
+  Polymer.CarbonRoutingBehavior = {
 
     properties: {
       route: {
@@ -168,7 +166,7 @@
 
   };
 
-  Polymer.PulpRoutingRootBehavior = {
+  Polymer.CarbonRoutingRootBehavior = {
 
     properties: {
       route: {
@@ -189,14 +187,14 @@
 })();
 </script>
 
-<dom-module id="pulp-router">
+<dom-module id="carbon-router">
   <script>
 
     Polymer({
 
       behaviors: [
-        Polymer.PulpRoutingBehavior,
-        Polymer.PulpRoutingRootBehavior
+        Polymer.CarbonRoutingBehavior,
+        Polymer.CarbonRoutingRootBehavior
       ],
 
       properties: {
@@ -215,12 +213,12 @@
   </script>
 </dom-module>
 
-<dom-module id="pulp-route">
+<dom-module id="carbon-route">
   <script>
     Polymer({
 
       behaviors: [
-        Polymer.PulpRoutingBehavior
+        Polymer.CarbonRoutingBehavior
       ]
 
     });

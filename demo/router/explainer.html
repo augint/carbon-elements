@@ -2,26 +2,26 @@
 <html>
 <head>
 
-  <title>pulp-router: explainer</title>
+  <title>carbon-router: explainer</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-  <link href="../config.html" rel="import">
+  <link rel="import" href="components.html">
 
-  <link href="../../../!/pulp-elements/pulp-router.html" is="pulp-import">
-  <link href="../../../!/iron-elements/iron-selector.html" is="pulp-import">
-  <link href="../../../!/iron-elements/flex-layout/layout.html" is="pulp-import">
+  <link rel="import" href="../../carbon-router.html">
 
   <style>
 
     body {
       font-family: sans-serif;
     }
+
     a {
       display: block;
       padding: 4px;
     }
+
     input {
       padding: 4px;
     }
@@ -89,11 +89,11 @@
   </style>
   <template>
 
-    <pulp-route route="{{route}}" matches=":page" page="{{page}}"></pulp-route>
+    <carbon-route route="{{route}}" matches=":page" page="{{page}}"></carbon-route>
 
-    <pulp-route route="{{route}}" matches="one" subroute="{{subrouteOne}}"></pulp-route>
-    <pulp-route route="{{route}}" matches="two" subroute="{{subrouteTwo}}"></pulp-route>
-    <pulp-route route="{{route}}" matches="three" subroute="{{subrouteThree}}"></pulp-route>
+    <carbon-route route="{{route}}" matches="one" subroute="{{subrouteOne}}"></carbon-route>
+    <carbon-route route="{{route}}" matches="two" subroute="{{subrouteTwo}}"></carbon-route>
+    <carbon-route route="{{route}}" matches="three" subroute="{{subrouteThree}}"></carbon-route>
 
     <iron-selector columns selected="{{page}}" attr-for-selected="name" selected-attribute="active">
 
@@ -102,8 +102,8 @@
         <p>Page <b>One</b></p>
         <p>subroute: <span>{{subrouteOne}}</span></p>
 
-        <pulp-route route="{{subrouteOne}}" matches=":section" section="{{section}}"></pulp-route>
-        <pulp-route route="{{subrouteOne}}" matches="user/:user" user="{{user}}" subroute="{{userSubroute}}"></pulp-route>
+        <carbon-route route="{{subrouteOne}}" matches=":section" section="{{section}}"></carbon-route>
+        <carbon-route route="{{subrouteOne}}" matches="user/:user" user="{{user}}" subroute="{{userSubroute}}"></carbon-route>
 
         <iron-selector columns selected="{{section}}" attr-for-selected="name" selected-attribute="active">
 

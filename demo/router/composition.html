@@ -2,15 +2,14 @@
 <html>
 <head>
 
-  <title>pulp-router: composition demo</title>
+  <title>carbon-router: composition demo</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-  <link href="../config.html" rel="import">
+  <link rel="import" href="components.html">
 
-  <link href="../../../!/pulp-elements/pulp-router.html" is="pulp-import">
-  <link href="../../../!/iron-elements/iron-pages.html" is="pulp-import">
+  <link rel="import" href="../../carbon-router.html">
 
   <style>
 
@@ -26,7 +25,7 @@
 <template is="dom-bind">
 
   <!-- element that manages the actual url -->
-  <pulp-router route="{{route}}"></pulp-router>
+  <carbon-router route="{{route}}"></carbon-router>
 
   <!-- views treat routes as pure data -->
   <main-view route="{{route}}"></main-view>
@@ -52,7 +51,7 @@
       `route` is supplied by owner
       matching routes are decomposed into data, `:<name>` matches any string
     -->
-    <pulp-route route="{{route}}" matches=":section" section="{{section}}"></pulp-route>
+    <carbon-route route="{{route}}" matches=":section" section="{{section}}"></carbon-route>
 
     <p>route: [<span>{{route}}</span>]</p>
     <hr>
@@ -107,7 +106,7 @@
       },
 
 
-      // changes to `section` are observed by the pulp-route which modifies `route`,
+      // changes to `section` are observed by the carbon-route which modifies `route`,
       //  which can be observed by owner
       _sectionTwoAction: function() {
         this.section = 'beta';
@@ -136,8 +135,8 @@
   </style>
   <template>
 
-    <pulp-route route="{{route}}" matches=":page" page="{{page}}"></pulp-route>
-    <pulp-route route="{{route}}" matches="one" tail="{{subroute}}"></pulp-route>
+    <carbon-route route="{{route}}" matches=":page" page="{{page}}"></carbon-route>
+    <carbon-route route="{{route}}" matches="one" tail="{{subroute}}"></carbon-route>
 
     <p>route: [<span>{{route}}</span>]</p>
     <hr>
