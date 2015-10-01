@@ -5,17 +5,17 @@
 
   var requireRouting = function() {
     requireRouting = function() {};
-    addEventListener('popstate', popStateHandler);
     parseLocation();
+    addEventListener('popstate', popStateHandler);
+  };
+
+  var parseLocation = function() {
+    route = location.hash.slice(2);
   };
 
   var popStateHandler = function() {
     parseLocation();
     Polymer.Base.fire('route-change', route, {node: window});
-  };
-
-  var parseLocation = function() {
-    route = location.hash.slice(2);
   };
 
   var getRoute = function() {
@@ -40,23 +40,41 @@
   Polymer.CarbonRoutingBehavior = {
 
     properties: {
+
+      // the actual route managed by this element
+      // notifies so we can have an api here to affect the route too
       route: {
         notify: true
       },
 
+      // pattern to compare to `route`
+      // matches: String
+      // "<literal>|:<macro>/..."
+      // path value matching `<macro>` is converted into values on pseudo-property `<macro>`
+
+      // part of `route` consumed by `matches`
+      head: {
+        notify: true
+      },
+
+      // part of `route` NOT consumed by `matches`
+      // alias for subroute
+      tail: {
+        notify: true,
+        observer: '_tailChanged'
+      },
+
+      // alias for tail
       subroute: {
         notify: true,
         observer: '_subrouteChanged'
       },
 
+      // object form of data processed from route
+      // experimental
       data: {
         computed: '_computeData(route, matches)',
         notify: true
-      },
-
-      tail: {
-        notify: true,
-        observer: '_tailChanged'
       }
 
     },
@@ -141,7 +159,12 @@
         }
       });
       this._dynData[property] = value;
-      this._notifyChange(property);
+      // TODO(sjmiles): flaw in fauxification:
+      // the notification can occur before the parent listener is ready
+      // `async` fixes it, but at what cost?
+      this.async(function() {
+        this._notifyChange(property);
+      });
     },
 
     _routinate: function() {
