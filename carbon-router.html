@@ -25,7 +25,7 @@
   var setRoute = function(value) {
     if (value !== route) {
       route = value;
-      history.replaceState(null, '', '#/' + route);
+      history.pushState(null, '', '#/' + route);
       popStateHandler();
     }
   };
