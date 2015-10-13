@@ -1,0 +1,147 @@
+<script>
+
+  Polymer.Base.installArrayApi = function(arrayName) {
+    var array = this.get(arrayName);
+    array.filterInPlace = function(filter) {
+      for (var i=0; i<array.length; i++) {
+        if (filter(array[i])) {
+          this.splice(arrayName, i--, 1);
+        }
+      }
+    };
+    array.remove = function(item) {
+      this.arrayDelete(arrayName, item);
+    };
+    array.push = function(item) {
+      this.push(arrayName, item);
+    };
+  };
+
+  Polymer.Base.action = function(e) {
+    var action = e.currentTarget.getAttribute('action');
+    var expr = action.split(':');
+    var prop = expr[0];
+    var value = expr[1];
+    switch (value) {
+      case 'true':
+        value = true;
+        break;
+      case 'false':
+        value = false;
+        break;
+      case 'null':
+        value = null;
+        break;
+    }
+    this[prop] = value;
+  }; 
+  Polymer.Base._nativePrototypes.template.action = Polymer.Base.action;
+
+  Polymer.Base.eq = function(a, b) { 
+    return a == b;
+  };
+  Polymer.Base._nativePrototypes.template.eq = Polymer.Base.eq;
+
+</script>
+
+<script>
+  
+  Polymer({
+    is: 'dom-constant',
+    properties: {
+      value: {
+      },
+      bind: {
+        computed: '_computeBind(value)',
+        notify: true
+      }
+    },
+    _computeBind: function(value) {
+      return value;
+    }
+  });
+
+</script>
+
+<script>
+ 
+  var neospect = function() {
+    var html = ''
+        + '<style>' 
+        +   'body {font-family: monospace;}'
+        +   'tag {color: green;}'
+        +   'tag::before {content: "<"}'
+        +   'tag::after {content: ">"}'
+        +   'is {color: red;}'
+        +   'prop {font-weight: normal; color: black; font-style: italic;}'
+        +   'value {font-weight: bold; color: blue;}'
+        + '</style>'
+        + '<button onclick="refresh()">Refresh</button>'
+        + '<pre>'
+        +   _neospect(document.body, '')
+        + '</pre>'
+        ;
+    var w = window.open("", "neospector", "xmenubar=yes,location=no,resizable=yes,scrollbars=yes,status=yes");
+    w.refresh = function() { neospect(); };
+    w.document.body.innerHTML = html;
+  };
+
+  var _tagify = function(element) {
+    return '<tag>' + element.localName + (element.is && element.is != element.localName ? ' <is>is="' + element.is + '"</is>' : '') + '</tag>';
+  };
+  
+  var _neospect = function(element, indent) {
+    var html = '';
+    while (element) {
+      if (element.localName !== 'dom-module') {
+        html += _neospectElement(element, indent);
+      }
+      element = element.nextElementSibling;      
+    }
+    return html;
+  };
+
+  var _neospectElement = function(element, indent) {
+    var html = '';
+    var d = element.__data__;
+    /*
+      var hasData = false;
+      for (var n in d) {
+        hasData = true;
+      }
+    */
+    var hasData = Boolean(d);
+    if (hasData || element.childElementCount) {
+      html += '<hr>' + indent + _tagify(element) + '<br>';
+    }
+    indent += '&nbsp;&nbsp;';
+    if (hasData) {
+      html += _dataspect(d, indent, 0);
+    }
+    if (element.childElementCount) {
+      //html += indent + 'children:<br>'
+      html += _neospect(element.firstElementChild, indent);
+    }
+    return html;
+  };
+  
+  var _dataspect = function(data, indent, level) {
+    var html = '';
+    //indent = indent + '&nbsp;&nbsp;';
+    for (var name in data) {
+      var lb = '<br>';
+      var value = data[name];
+      if (String(value) === '[object Object]' && level < 3) {
+        lb = '';
+        value = '<br>' + _dataspect(value, indent + '&nbsp;&nbsp;', level+1);
+      } else if (String(value) === '[object HTMLElement]') {
+        value = _tagify(value);
+      } else if (typeof value === 'string') {
+        value = "'" + value + "'";
+      }
+      html += indent + '<prop>' + name + '</prop>: <value>' + value + '</value>' + lb;
+    }
+    return html;
+  };
+  
+</script>

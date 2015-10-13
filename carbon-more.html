@@ -1,0 +1,91 @@
+<script>
+  Polymer.CarbonMore = {
+    
+    properties: {
+      _scroller: {
+        observer: '_scrollerChanged'
+      },
+      margin: {
+        value: 500
+      }
+    },
+    
+    _findScroller: function() {
+      var p = this.parentElement;
+      while (p) {
+        if (p.clientHeight != p.offsetHeight) {
+          return p;
+        }
+        p = p.parentElement;
+      }
+      return null;
+    },
+    
+    attached: function() {
+      this.async(function() {
+        this._more();
+        this._scroller = this._findScroller();
+      })
+    },
+    
+    _scrollerChanged: function(scroller) {
+      var target = window;
+      this.listen(target, 'scroll', '_onScroll');
+    },
+    
+    _onScroll: function() {
+      this._more();
+    },
+
+    _shouldMakeMore: function() {
+      var de = document.documentElement, db = document.body;
+      var view_bottom = (de.scrollTop || db.scrollTop) + de.clientHeight;
+      var content_bottom = this.offsetTop + this.offsetHeight;
+      //
+      return content_bottom < view_bottom;
+      /*
+      var margin = this.margin;
+      var delta = view_bottom + margin - content_bottom;
+      return delta > 0;
+      */
+    },
+    
+    _more: function() {
+    }
+    
+  }
+</script>
+  
+<script>
+  Polymer({
+
+    is: 'carbon-more',
+    
+    behaviors: [
+      Polymer.CarbonMore
+    ],
+
+    created: function() {
+      this._sectionIndex = 0;
+    },
+
+    attached: function() {
+      this._sections = [];
+      for (var i=0, l=this.children.length; i<l; i++) {
+        this._sections.push(this.children[i]);
+      }
+    },
+
+    _more: function() {
+      if (this._shouldMakeMore()) {
+        var e = this._sections[this._sectionIndex++];
+        if (e) {
+          e.if = true;
+          console.log(this._sectionIndex);
+          this.async(this._more);
+        }
+      }
+    }
+
+  });
+</script>

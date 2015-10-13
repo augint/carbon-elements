@@ -2,7 +2,7 @@
 <html>
 <head>
 
-  <title>carbon-router: example-0</title>
+  <title>carbon-router: experiment-0</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
@@ -41,7 +41,7 @@
 
 </template>
 
-<!-- main-view.html -->
+<!-- router-utilities.html -->
 
 <script>
   Polymer({
@@ -72,6 +72,19 @@
   });
 </script>
 
+<script>
+  RouteAware = {
+    listeners: {
+      'route-head': 'onRouteHead'
+    },
+    onRouteHead: function(e) {
+      e.detail.head = this.head;
+    }
+  };
+</script>
+  
+<!-- main-view.html -->
+
 <dom-module id="main-view">
   <style>
 
@@ -91,16 +104,12 @@
   <script>
 
     Polymer({
-
+  
+      behaviors: [
+        RouteAware
+      ],
+      
       properties: {
-      },
-
-      listeners: {
-        'route-head': 'onRouteHead'
-      },
-
-      onRouteHead: function(e) {
-        e.detail.head = this.head;
       }
 
     });
@@ -133,8 +142,7 @@
   </template>
   <script>
 
-    Polymer({
-    });
+    Polymer({});
 
   </script>
 </dom-module>
