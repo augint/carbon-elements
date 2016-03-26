@@ -1,0 +1,27 @@
+{
+  "name": "carbon-elements",
+  "homepage": "https://github.com/PolymerElements/carbon-elements",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "description": "The carbon elements enable building full web apps out of modular custom elements.",
+  "main": "carbon-elements.html",
+  "moduleType": [],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "app"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "carbon-route": "PolymerElements/carbon-route#^0.8.0"
+  }
+}
