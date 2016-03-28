@@ -10,7 +10,7 @@ The carbon elements are for app-level concerns like routing, storage, and bindin
 
 ### Elements in progress
 
-_No elements currently in progress._
+* [`<carbon-i18n>`] - to enable client-side translation and localization
 
 ### Elements planned
 
