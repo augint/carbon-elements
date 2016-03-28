@@ -12,7 +12,7 @@
     "polymer",
     "app"
   ],
-  "license": "MIT",
+  "license": "http://polymer.github.io/LICENSE.txt",
   "private": true,
   "ignore": [
     "**/.*",
