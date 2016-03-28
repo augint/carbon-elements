@@ -6,15 +6,17 @@ The carbon elements are for app-level concerns like routing, storage, and bindin
 
 ### Elements recently released
 
-* [`<carbon-route>` and `<carbon-location>`](https://github.com/PolymerElements/carbon-route) enable declarative client-side routing.
+* [`carbon-route` and `carbon-location`](https://github.com/PolymerElements/carbon-route) enable declarative client-side routing.
 
 ### Elements in progress
 
-* [`<carbon-i18n>`] - to enable client-side translation and localization
+* `carbon-i18n` - to enable client-side translation and localization
 
 ### Elements planned
 
 _Elements we're planning on building soon but haven't started yet_
+
+[None]
 
 ### Elements not planned, notably
 
